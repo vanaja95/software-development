@@ -1,0 +1,91 @@
+CREATE TABLE customers (
+  customer_id INT PRIMARY KEY,
+  name VARCHAR(255),
+  email VARCHAR(255),
+  phone VARCHAR(20),
+  address VARCHAR(255)
+);
+
+CREATE TABLE orders (
+  order_id INT PRIMARY KEY,
+  customer_id INT,
+  order_date DATE,
+  total_amount DECIMAL(10, 2),
+  FOREIGN KEY (customer_id) REFERENCES customers(customer_id)
+);
+
+CREATE TABLE order_details (
+  order_detail_id INT PRIMARY KEY,
+  order_id INT,
+  product_id INT,
+  quantity INT,
+  unit_price DECIMAL(10, 2),
+  FOREIGN KEY (order_id) REFERENCES orders(order_id),
+  FOREIGN KEY (product_id) REFERENCES products(product_id)
+);
+
+CREATE TABLE products (
+  product_id INT PRIMARY KEY,
+  name VARCHAR(255),
+  description TEXT,
+  price DECIMAL(10, 2)
+);
+
+CREATE TABLE employees (
+  employee_id INT PRIMARY KEY,
+  name VARCHAR(255),
+  email VARCHAR(255),
+  phone VARCHAR(20),
+  position VARCHAR(100)
+);
+
+CREATE TABLE activities (
+  activity_id INT PRIMARY KEY,
+  type VARCHAR(100),
+  description TEXT,
+  date DATE,
+  time TIME
+);
+
+
+Insert:
+-------
+INSERT INTO customers (name, email, phone, address) VALUES ('John Doe', 'johndoe@example.com', '123-456-7890', '123 Main St');
+INSERT INTO orders (customer_id, order_date, total_amount) VALUES (1, '2022-01-01', 100.00);
+INSERT INTO order_details (order_id, product_id, quantity, unit_price) VALUES (1, 1, 2, 10.00);
+INSERT INTO products (name, description, price) VALUES ('Product A', 'This is product A', 20.00);
+INSERT INTO employees (name, email, phone, position) VALUES ('Jane Smith', 'janesmith@example.com', '987-654-3210', 'Sales Representative');
+INSERT INTO activities (type, description, date, time) VALUES ('Meeting', 'Meeting with customer', '2022-01-15', '10:00 AM');
+
+
+Read
+-----
+SELECT * FROM customers WHERE customer_id = 1;
+SELECT * FROM orders WHERE customer_id = 1;
+SELECT * FROM order_details WHERE order_id = 1;
+SELECT * FROM products WHERE product_id = 1;
+SELECT * FROM employees WHERE employee_id = 1;
+SELECT * FROM activities WHERE activity_id = 1;
+
+
+Update
+-------
+UPDATE customers SET name = 'Jane Doe' WHERE customer_id = 1;
+UPDATE orders SET total_amount = 150.00 WHERE order_id = 1;
+UPDATE order_details SET quantity = 3 WHERE order_id = 1;
+UPDATE products SET price = 25.00 WHERE product_id = 1;
+UPDATE employees SET position = 'Manager' WHERE employee_id = 1;
+UPDATE activities SET description = 'Meeting with customer' WHERE activity_id = 1;
+
+
+Delete
+------
+DELETE FROM customers WHERE customer_id = 1;
+DELETE FROM orders WHERE order_id = 1;
+DELETE FROM order_details WHERE order_id = 1;
+DELETE FROM products WHERE product_id = 1;
+DELETE FROM employees WHERE employee_id = 1;
+DELETE FROM activities WHERE activity_id = 1;
+
+
+
